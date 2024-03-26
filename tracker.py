@@ -9,14 +9,15 @@ from datetime import datetime
 
 path = "./tasks.csv"
 logo = [
-    f"{FG.CYAN}{UTIL.BOLD} _____               _             ",
-    f"|_   _| __ __ _  ___| | _____ _ __ ",
-    f"  | || '__/ _` |/ __| |/ / _ \ '__|",
-    f"  | || | | (_| | (__|   <  __/ |   ",
-    f"  |_||_|  \__,_|\___|_|\_\___|_|   ",
+    f"{FG.CYAN}{UTIL.BOLD}",
+    f"{FG.CYAN}  ██████╗  ██████╗ {FG.WHITE}████████╗██████╗  █████╗  ██████╗██╗  ██╗",
+    f"{FG.CYAN} ██╔════╝ ██╔═══██╗{FG.WHITE}╚══██╔══╝██╔══██╗██╔══██╗██╔════╝██║ ██╔╝",
+    f"{FG.CYAN} ██║  ███╗██║   ██║{FG.WHITE}   ██║   ██████╔╝███████║██║     █████╔╝ ",
+    f"{FG.CYAN} ██║   ██║██║   ██║{FG.WHITE}   ██║   ██╔══██╗██╔══██║██║     ██╔═██╗ ",
+    f"{FG.CYAN} ╚██████╔╝╚██████╔╝{FG.WHITE}   ██║   ██║  ██║██║  ██║╚██████╗██║  ██╗",
+    f"{FG.CYAN}  ╚═════╝  ╚═════╝ {FG.WHITE}   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝",
     f"{UTIL.RESET}"
 ]
-                                        
 
 def ReadTasks():
     tasks = []
@@ -44,7 +45,7 @@ def WriteTask(task):
 def DisplayTasks():
     tasks = ReadTasks()
 
-    for task in tasks[-(os.get_terminal_size().lines - 8):]:
+    for task in tasks[-(os.get_terminal_size().lines - 10):]:
         task = task.split(",")
 
         for t in task:
