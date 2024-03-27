@@ -42,11 +42,13 @@ def WriteTask(task):
     return True
 
 
-def DisplayTasks():
+def DisplayTasks(date="any"):
     tasks = ReadTasks()
 
     for task in tasks[-(os.get_terminal_size().lines - 10):]:
         task = task.split(",")
+        if date != "any" and task[0] != date:
+            continue
 
         for t in task:
             print(f"  {t}",end="")
@@ -70,6 +72,9 @@ def Prompt():
         return
     elif task == "edit":
         os.system(f"vim {path}")
+    elif task.split(" ")[0] == "search":
+        DisplayTasks(task.split(" ")[1])
+        input()
     else:
         if WriteTask(task):
             print(f"{UTIL.UP}{FG.GREEN}Add Task:{UTIL.RESET}")
