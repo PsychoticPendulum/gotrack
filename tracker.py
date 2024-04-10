@@ -75,6 +75,9 @@ def Prompt():
     elif task.split(" ")[0] == "search":
         DisplayTasks(task.split(" ")[1])
         input()
+    elif task == "all":
+        DisplayTasks()
+        exit(0)
     else:
         if WriteTask(task):
             print(f"{UTIL.UP}{FG.GREEN}Add Task:{UTIL.RESET}")
