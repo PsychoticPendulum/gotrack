@@ -6,6 +6,9 @@ import readline
 from unilog import *
 from datetime import datetime
 
+import csv
+from tabulate import tabulate
+
 
 path = "./tasks.csv"
 logo = [
@@ -43,17 +46,21 @@ def WriteTask(task):
 
 
 def DisplayTasks(date="any"):
-    tasks = ReadTasks()
 
-    for task in tasks[-(os.get_terminal_size().lines - 10):]:
-        task = task.split(",")
-        if date != "any" and task[0] != date:
-            continue
+    with open("tasks.csv", newline='') as csvfile:
+        csvreader = csv.reader(csvfile)
+        data = list(csvreader)
 
-        for t in task:
-            print(f"  {t}",end="")
-        
-        print("")
+    headers = [
+        f"{UTIL.BOLD}Date{UTIL.RESET}",
+        f"{UTIL.BOLD}Day{UTIL.RESET}",
+        f"{UTIL.BOLD}Time{UTIL.RESET}",
+        f"{UTIL.BOLD}Category{UTIL.RESET}",
+        f"{UTIL.BOLD}Task{UTIL.RESET}"
+    ]
+    lines = tabulate(data[-(os.get_terminal_size().lines - 12):], headers=headers).split('\n')
+    for line in lines:
+        print(f"  {line}")
 
 
 def Prompt():
@@ -79,6 +86,9 @@ def Prompt():
         DisplayTasks()
         exit(0)
     else:
+        if not "," in task:
+            category = input(f"{UTIL.BOLD}Category: {UTIL.RESET}")
+            task = f"{category},{task}"
         if WriteTask(task):
             print(f"{UTIL.UP}{FG.GREEN}Add Task:{UTIL.RESET}")
 
