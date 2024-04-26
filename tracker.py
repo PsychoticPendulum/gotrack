@@ -11,14 +11,17 @@ from tabulate import tabulate
 
 
 path = "./tasks.csv"
+MAJOR = 1
+MINOR = 19
+
 logo = [
-    f"{FG.CYAN}{UTIL.BOLD}",
-    f"{FG.CYAN}  ██████╗  ██████╗ {FG.WHITE}████████╗██████╗  █████╗  ██████╗██╗  ██╗",
-    f"{FG.CYAN} ██╔════╝ ██╔═══██╗{FG.WHITE}╚══██╔══╝██╔══██╗██╔══██╗██╔════╝██║ ██╔╝",
-    f"{FG.CYAN} ██║  ███╗██║   ██║{FG.WHITE}   ██║   ██████╔╝███████║██║     █████╔╝ ",
-    f"{FG.CYAN} ██║   ██║██║   ██║{FG.WHITE}   ██║   ██╔══██╗██╔══██║██║     ██╔═██╗ ",
-    f"{FG.CYAN} ╚██████╔╝╚██████╔╝{FG.WHITE}   ██║   ██║  ██║██║  ██║╚██████╗██║  ██╗",
-    f"{FG.CYAN}  ╚═════╝  ╚═════╝ {FG.WHITE}   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝",
+    f"",
+    f"{FG.BLUE}  ██████╗ ██╗   ██╗{FG.MAGENTA}████████╗██████╗  █████╗  ██████╗██╗  ██╗",
+    f"{FG.BLUE}  ██╔══██╗╚██╗ ██╔╝{FG.MAGENTA}╚══██╔══╝██╔══██╗██╔══██╗██╔════╝██║ ██╔╝",
+    f"{FG.BLUE}  ██████╔╝ ╚████╔╝ {FG.MAGENTA}   ██║   ██████╔╝███████║██║     █████╔╝ \t{FG.WHITE}by luks",
+    f"{FG.BLUE}  ██╔═══╝   ╚██╔╝  {FG.MAGENTA}   ██║   ██╔══██╗██╔══██║██║     ██╔═██╗ \t{FG.WHITE}v{MAJOR}.{MINOR}",
+    f"{FG.BLUE}  ██║        ██║   {FG.MAGENTA}   ██║   ██║  ██║██║  ██║╚██████╗██║  ██╗",
+    f"{FG.BLUE}  ╚═╝        ╚═╝   {FG.MAGENTA}   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝",
     f"{UTIL.RESET}"
 ]
 
@@ -71,7 +74,7 @@ def Prompt():
 
     DisplayTasks()
     
-    task = input(f"\n{UTIL.BOLD}Add Task: {UTIL.RESET}")
+    task = input(f"\n  {UTIL.BOLD}Add Task: {UTIL.RESET}")
 
     if task == "exit":
         exit(0)
