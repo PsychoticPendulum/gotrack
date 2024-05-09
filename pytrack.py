@@ -6,6 +6,7 @@
 import os
 import sys
 import csv
+import readline
 from unilog import *
 from datetime import datetime
 from tabulate import tabulate
@@ -21,6 +22,8 @@ MAJOR       = "1"
 MINOR       = "19"
 PATCH       = "a"
 
+SORTING     = [0, 2, 1, 3, 4]
+FILTER      = ["","","","",""]
 
 logo = [
     f"",
@@ -42,7 +45,6 @@ def SysReq():
         Log(LVL.FAIL, f"Operating System not supported: {sys.platform}")
     if not os.path.exists(PATH):
         os.makedirs(PATH)
-        input()
     return True
 
 
@@ -59,7 +61,40 @@ def ReadTasks():
         except Exception as e:
             Log(LVL.FAIL, f"{e}")
 
-    return sorted(tasks, key=lambda x: (x[0],x[2]))
+    tasks = ApplyFilter(tasks)
+    return sorted(tasks, key=lambda x: (x[SORTING[0]],x[SORTING[1]],x[SORTING[2]],x[SORTING[3]],x[SORTING[4]]))
+
+
+# ---------------------------------------------------------------------------------------------------------------------
+
+
+def SetSorting(values):
+    values = values.split(",")
+    for i in range(len(values)):
+        SORTING[i] = int(values[i])
+
+
+# ---------------------------------------------------------------------------------------------------------------------
+
+
+def ApplyFilter(tasks):
+    filtered_tasks = []
+    for i in range(len(tasks)):
+        valid_task = True
+        for j in range(len(FILTER)):
+            if tasks[i][j] == FILTER[j] or FILTER[j] == "":
+                continue
+            valid_task = False
+        if valid_task:
+            filtered_tasks.append(tasks[i])
+    return filtered_tasks
+
+
+def SetFilter(filters):
+    filters = filters.split(",")
+    for f in filters:
+        f = f.split("=")
+        FILTER[int(f[0])] = f[1]
 
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -98,13 +133,14 @@ def ParseTask(task):
 
     except ValueError:
         match task:
-            case "exit": exit(0)
-            case "edit": os.system(f"vim {FILEPATH}")
+            case "exit":    exit(0)
+            case "edit":    os.system(f"vim {FILEPATH}")
         return
 
     match cmd:
-        case "sort":    SORTING = arg
-        case _:         WriteTask(cmd, arg)
+        case "sort":        SetSorting(arg)
+        case "filter":      SetFilter(arg)
+        case _:             WriteTask(cmd, arg)
 
 
 # ---------------------------------------------------------------------------------------------------------------------
