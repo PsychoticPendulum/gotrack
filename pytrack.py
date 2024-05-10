@@ -23,7 +23,7 @@ MINOR       = "19"
 PATCH       = "a"
 
 SORTING     = [0, 2, 1, 3, 4]
-FILTER      = ["","","","",""]
+FILTER      = [None,None,None,None,None]
 
 logo = [
     f"",
@@ -82,7 +82,7 @@ def ApplyFilter(tasks):
     for i in range(len(tasks)):
         valid_task = True
         for j in range(len(FILTER)):
-            if tasks[i][j] == FILTER[j] or FILTER[j] == "":
+            if FILTER[j] is None or FILTER[j] in tasks[i][j]:
                 continue
             valid_task = False
         if valid_task:
@@ -94,6 +94,10 @@ def SetFilter(filters):
     filters = filters.split(",")
     for f in filters:
         f = f.split("=")
+        if len(f) == 1:
+            global FILTER
+            FILTER = [None,None,None,None,None]
+            return
         FILTER[int(f[0])] = f[1]
 
 
